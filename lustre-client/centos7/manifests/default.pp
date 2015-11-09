@@ -29,7 +29,7 @@ exec { 'configure-lustre-spec':
               Exec['development-tools']],
 }
 
-exec { 'build-lustre-rpm':
+exec { 'build-lustre-rpms':
   command => 'make rpms',
   cwd => "/root/lustre.git",
   path => "/bin:/usr/bin",
@@ -37,5 +37,11 @@ exec { 'build-lustre-rpm':
               Package['libselinux-devel'],
               Exec['configure-lustre-spec']],
   timeout => 0,
+}
+
+exec { 'install-lustre-rpms':
+  command => 'rpm -i /root/rpmbuild/RPMS/*.rpm',
+  path => "/bin:/usr/bin",
+  require => Exec['build-lustre-rpms'],
 }
 
