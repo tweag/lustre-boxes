@@ -13,6 +13,10 @@ package { 'libselinux-devel':
   ensure => present,
 }
 
+package { 'kernel':
+  ensure => latest
+}
+
 exec { 'development-tools':
   unless  => '/usr/bin/yum grouplist "Development tools" | /bin/grep "^Installed Groups"',
   command => '/usr/bin/yum -y groupinstall "Development tools"',
