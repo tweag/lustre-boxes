@@ -1,0 +1,11 @@
+VAGRANT_API_VERSION = 2
+
+Vagrant.configure(VAGRANT_API_VERSION) do |config|
+  config.vm.box = "bento/centos-7.1"
+  config.vm.provision "shell", inline: "rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm || true"
+  config.vm.provision "shell", inline: "yum -y install puppet"
+  config.vm.provision "puppet" do |puppet|
+    puppet.module_path = "modules"
+  end
+  config.librarian_puppet.placeholder_filename = ".gitkeep"
+end
