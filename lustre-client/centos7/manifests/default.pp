@@ -36,6 +36,8 @@ exec { 'configure-lustre-spec':
 exec { 'build-lustre-rpms':
   command => 'make rpms',
   cwd => "/root/lustre.git",
+  environment => ["HOME=/root"],
+  logoutput => true,
   path => "/bin:/usr/bin",
   require => [Vcsrepo["/root/lustre.git"],
               Package['libselinux-devel'],
@@ -44,7 +46,7 @@ exec { 'build-lustre-rpms':
 }
 
 exec { 'install-lustre-rpms':
-  command => 'rpm -i /root/rpmbuild/RPMS/*.rpm',
+  command => 'yum install -y /root/rpmbuild/RPMS/x86_64/*.rpm',
   path => "/bin:/usr/bin",
   require => Exec['build-lustre-rpms'],
 }
