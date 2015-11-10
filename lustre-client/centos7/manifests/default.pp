@@ -48,6 +48,5 @@ exec { 'build-lustre-rpms':
 exec { 'install-lustre-rpms':
   command => 'yum install -y /root/rpmbuild/RPMS/x86_64/*.rpm',
   path => "/bin:/usr/bin",
-  require => Exec['build-lustre-rpms'],
+  require => [Exec['build-lustre-rpms'], Package['kernel']],
 }
-
