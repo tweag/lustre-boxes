@@ -13,3 +13,4 @@ test:
   override:
     - vagrant up --provider=docker:
         pwd: lustre-client/centos7
+        timeout: 1200
