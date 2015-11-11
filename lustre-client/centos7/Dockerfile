@@ -14,6 +14,8 @@ RUN ssh-keygen -A
 
 ADD sudoers.d/01_vagrant /etc/sudoers.d/
 RUN chmod 0400 /etc/sudoers.d/01_vagrant
+# Fix from https://github.com/docker/docker/issues/5663.
+RUN sed -ri 's/^session\s+required\s+pam_loginuid.so$/session optional pam_loginuid.so/' /etc/pam.d/sshd
 
 RUN mkdir /var/run/sshd
 CMD ["/usr/sbin/sshd", "-D", "-e"]
