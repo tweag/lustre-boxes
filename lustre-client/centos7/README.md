@@ -12,6 +12,12 @@ $ vagrant up
 $ vagrant ssh
 ```
 
+You can use Docker as a provider instead of the default VirtualBox:
+
+```
+$ vagrant up --provider=docker
+```
+
 The generated RPM's and SRPM's can be found in `/root/rpmbuild/`. If
 you modify any of the provisioner files, you can conveniently
 reprovision without starting from scratch again using
